@@ -26,6 +26,5 @@ let package = Package(
         .testTarget(
             name: "SpeedManagerModuleTests",
             dependencies: ["SpeedManagerModule"]),
-    ],
-    swiftLanguageVersions: [SwiftVersion.v5]
+    ]
 )

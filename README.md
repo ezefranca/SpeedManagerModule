@@ -2,6 +2,7 @@
 > Simple Speedometer class to iOS and WatchOS.
 
 [![Swift Version][swift-image]][swift-url]
+![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
 [![License][license-image]][license-url]
 
 Measure the speed using an iPhone or Apple Watch.
