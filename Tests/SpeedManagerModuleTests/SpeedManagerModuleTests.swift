@@ -1,7 +1,7 @@
 import XCTest
-@testable import SpeedManager
+@testable import SpeedManagerModule
 
-final class SpeedManagerTests: XCTestCase {
+final class SpeedManagerModuleTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

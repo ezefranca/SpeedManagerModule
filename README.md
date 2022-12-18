@@ -1,4 +1,4 @@
-# SpeedManager
+# SpeedManagerModule
 > Simple Speedometer class to iOS and WatchOS.
 
 [![Swift Version][swift-image]][swift-url]
@@ -12,12 +12,12 @@ I like to measure my speed inside trains and buses. When I was searching for a s
 
 ## Installation
 
-The Swift Package Manager is the easiest way to install and manage SpeedManager as a dependecy.
-Simply add SpeedManager to your dependencies in your Package.swift file:
+The Swift Package Manager is the easiest way to install and manage SpeedManagerModule as a dependecy.
+Simply add SpeedManagerModule to your dependencies in your Package.swift file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ezefranca/SpeedManager.git")
+    .package(url: "https://github.com/ezefranca/SpeedManagerModule.git")
 ]
 ```
 
@@ -94,7 +94,7 @@ Just choose the unit during the class init.
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/ezefranca/SpeedManager](https://github.com/dbader/)
+[https://github.com/ezefranca/SpeedManagerModule](https://github.com/ezefranca/SpeedManagerModule)
 
 [swift-image]:https://img.shields.io/badge/swift-5.0-orange.svg
 [swift-url]: https://swift.org/

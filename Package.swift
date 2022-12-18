@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SpeedManager",
+    name: "SpeedManagerModule",
     platforms: [
         .macOS(.v11),
         .iOS(.v15),
@@ -12,8 +12,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "SpeedManager",
-            targets: ["SpeedManager"]),
+            name: "SpeedManagerModule",
+            targets: ["SpeedManagerModule"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,11 +21,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SpeedManager",
+            name: "SpeedManagerModule",
             dependencies: []),
         .testTarget(
-            name: "SpeedManagerTests",
-            dependencies: ["SpeedManager"]),
+            name: "SpeedManagerModuleTests",
+            dependencies: ["SpeedManagerModule"]),
     ],
     swiftLanguageVersions: [SwiftVersion.v5]
 )
