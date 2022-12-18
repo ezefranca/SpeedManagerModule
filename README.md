@@ -27,7 +27,8 @@ dependencies: [
 ### Update Info.plist
 
 Add the correct permission descriptions
-```
+
+```xml
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Your description why you should use NSLocationAlwaysAndWhenInUseUsageDescription</string>
     <key>NSLocationAlwaysUsageDescription</key>
@@ -38,9 +39,11 @@ Add the correct permission descriptions
 
 Add the background location updates in xcode
 
+![](https://raw.githubusercontent.com/ezefranca/SpeedManagerModule/main/.github/backgroundmodes.png)
+
 Or add the info to the Info.plist
 
-```
+```xml
     <key>UIBackgroundModes</key>
     <array>
         <string>location</string>
