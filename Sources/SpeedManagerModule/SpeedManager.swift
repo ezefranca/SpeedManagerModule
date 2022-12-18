@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-class SpeedManager : NSObject, ObservableObject {
+public class SpeedManager : NSObject, ObservableObject {
     
     // MARK: Private
     private let locationManager = CLLocationManager()
@@ -10,9 +10,8 @@ class SpeedManager : NSObject, ObservableObject {
     // MARK: Public
     public var delegate: SpeedManagerDelegate?
    
-    
-    @Published var authorizationStatus: SpeedManagerAuthorizationStatus = .notDetermined
-    @Published var speed: Double = 0
+    @Published public var authorizationStatus: SpeedManagerAuthorizationStatus = .notDetermined
+    @Published public var speed: Double = 0
     
     private var isRequestingLocation = false
     
@@ -52,7 +51,7 @@ class SpeedManager : NSObject, ObservableObject {
 
 extension SpeedManager: CLLocationManagerDelegate {
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
             
         case .authorizedWhenInUse,
@@ -73,7 +72,7 @@ extension SpeedManager: CLLocationManagerDelegate {
         self.startMonitoringSpeed()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let currentSpeed = locations.last?.speed ?? -1.0
         let calculatedSpeed = currentSpeed * self.speedUnit.rawValue
@@ -83,7 +82,7 @@ extension SpeedManager: CLLocationManagerDelegate {
         self.locationManager.requestLocation()
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.delegate?.speedManager(self, didFailWithError: error)
     }
 }
