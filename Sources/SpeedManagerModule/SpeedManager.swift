@@ -15,7 +15,7 @@ public class SpeedManager : NSObject, ObservableObject {
     
     private var isRequestingLocation = false
     
-    init(_ speedUnit: SpeedManagerUnit) {
+    public init(_ speedUnit: SpeedManagerUnit) {
         
         self.speedUnit = speedUnit
         self.delegate = nil

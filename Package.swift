@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SpeedManagerModule",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v12),
         .iOS(.v15),
         .watchOS(.v8)
     ],
