@@ -21,6 +21,29 @@ dependencies: [
 ]
 ```
 
+### Update Info.plist
+
+Add the correct permission descriptions
+```
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Your description why you should use NSLocationAlwaysAndWhenInUseUsageDescription</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Your description why you should use NSLocationAlwaysAndWhenInUseUsageDescription</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your description why you should use NSLocationAlwaysAndWhenInUseUsageDescription</string>
+```
+
+Add the background location updates in xcode
+
+Or add the info to the Info.plist
+
+```
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
+```
+
 ## Usage example
 
 
