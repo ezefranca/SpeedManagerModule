@@ -6,6 +6,8 @@
 
 Measure the speed using an iPhone or Apple Watch.
 
+![](https://github.com/ezefranca/SpeedManagerModule/blob/main/banner.jpg?raw=true)
+
 ### Motivation
 
 I like to measure my speed inside trains and buses. When I was searching for a speedometer app, the majority of them were ugly, with tons of ads. I was searching for an Apple Watch Speedometer with complications, iOS App with Widgets and did not found. Because of that I decided to create my own app. First thing was measure speed using `CLLocationManager`.
