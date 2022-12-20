@@ -117,6 +117,14 @@ Just choose the unit during the class init.
 
 ```
 
+### Demo 
+
+See the ```Demo``` folder to see it in action.
+
+https://user-images.githubusercontent.com/3648336/208699769-7cd2b63d-9c62-41da-a2fc-a4ae454500c1.mov
+
+
+
 ## Meta
 
 @ezefranca – [@ezefranca](https://twitter.com/ezefranca) 
