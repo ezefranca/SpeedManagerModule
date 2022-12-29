@@ -1,13 +1,23 @@
+<p align="center" >
+</p>
+
+[![Swift Version][swift-image]][swift-url]
+![Platform OS X | iOS ](https://img.shields.io/badge/platform-Linux%20%7C%20OS%20X%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-orange.svg)
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
+[![Build Status](https://travis-ci.org/ezefranca/SpeedManagerModule.svg?branch=master)](https://travis-ci.org/ezefranca/SpeedManagerModule)
+![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
+[![License][license-image]][license-url]
+[![Twitter](https://img.shields.io/badge/twitter-@ezefranca-blue.svg?style=flat)](http://twitter.com/ezefranca)
+
 # SpeedManagerModule
 > Simple Speedometer class to iOS and WatchOS.
 
-[![Swift Version][swift-image]][swift-url]
-![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
-[![License][license-image]][license-url]
-
 Measure the speed using an iPhone or Apple Watch.
 
-![](https://github.com/ezefranca/SpeedManagerModule/blob/main/banner.jpg?raw=true)
+<p align="center" >
+  <img src="https://github.com/ezefranca/SpeedManagerModule/blob/main/banner.jpg" alt="SpeedManagerModule" title="SpeedManagerModule">
+</p>
+
 
 ### Motivation
 
@@ -123,7 +133,6 @@ Check the ```Demo``` folder to see it in action.
 
 
 https://user-images.githubusercontent.com/3648336/208701407-ebf7319f-32c1-45bc-adc7-aa8509f0336d.mov
-
 
 
 ## Meta
