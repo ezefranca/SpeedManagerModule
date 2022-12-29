@@ -2,7 +2,7 @@
 </p>
 
 [![Swift Version][swift-image]][swift-url]
-![Platform OS X | iOS ](https://img.shields.io/badge/platform-Linux%20%7C%20OS%20X%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-orange.svg)
+![Platform OS X | iOS ](https://img.shields.io/badge/platform-iOS%20%7C%20watchOS-orange.svg)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![Build Status](https://app.travis-ci.com/ezefranca/SpeedManagerModule.svg?branch=main)](https://travis-ci.com/ezefranca/SpeedManagerModule)
 ![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
