@@ -4,7 +4,7 @@
 [![Swift Version][swift-image]][swift-url]
 ![Platform OS X | iOS ](https://img.shields.io/badge/platform-Linux%20%7C%20OS%20X%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-orange.svg)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
-[![Build Status](https://travis-ci.org/ezefranca/SpeedManagerModule.svg?branch=master)](https://travis-ci.org/ezefranca/SpeedManagerModule)
+[![Build Status](https://app.travis-ci.com/ezefranca/SpeedManagerModule.svg?branch=main)](https://travis-ci.com/ezefranca/SpeedManagerModule)
 ![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
 [![License][license-image]][license-url]
 [![Twitter](https://img.shields.io/badge/twitter-@ezefranca-blue.svg?style=flat)](http://twitter.com/ezefranca)
