@@ -1,7 +1,11 @@
-language:
-  - swift
-osx_image: xcode10.1
+os:
+  - osx
+language: swift
+osx_image: xcode11
+env:
+  - PROJECT_NAME=SpeedManagerModule
+install: (cd $PROJECT_NAME && swift package update)
 script:
-  - xcodebuild -scheme SpeedManagerModule -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build test
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - (cd $PROJECT_NAME && swift build)
+  - (cd $PROJECT_NAME && swift test)
+ 
