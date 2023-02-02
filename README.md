@@ -1,10 +1,9 @@
 <p align="center" >
 </p>
 
-[![Swift Version][swift-image]][swift-url]
-![Platform OS X | iOS ](https://img.shields.io/badge/platform-iOS%20%7C%20watchOS-orange.svg)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
-[![Build Status](https://app.travis-ci.com/ezefranca/SpeedManagerModule.svg?branch=main)](https://travis-ci.com/ezefranca/SpeedManagerModule)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fezefranca%2FSpeedManagerModule%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fezefranca%2FSpeedManagerModule%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
 ![github workflow](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)
 [![License][license-image]][license-url]
 [![Twitter](https://img.shields.io/badge/twitter-@ezefranca-blue.svg?style=flat)](http://twitter.com/ezefranca)
