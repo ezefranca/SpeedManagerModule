@@ -86,9 +86,9 @@ extension SpeedManager: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let currentSpeed = locations.last?.speed ?? -1.0
+        let currentSpeed = locations.last?.speed ?? 0
         let calculatedSpeed = currentSpeed * self.speedUnit.rawValue
-        self.speed = calculatedSpeed
+        self.speed = abs(calculatedSpeed)
         self.delegate?.speedManager(self, didUpdateSpeed: calculatedSpeed)
         
         self.locationManager.requestLocation()
