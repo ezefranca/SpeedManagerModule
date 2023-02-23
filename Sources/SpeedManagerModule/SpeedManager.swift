@@ -1,11 +1,18 @@
 import Foundation
 import CoreLocation
 
-public class SpeedManager : NSObject, ObservableObject {
+public protocol SpeedManagerTrigger {
+    func startUpdatingSpeed()
+    func startMonitoringSpeed()
+}
+
+public class SpeedManager : NSObject, ObservableObject, SpeedManagerTrigger {
     
     // MARK: Private
     private let locationManager = CLLocationManager()
     private var speedUnit: SpeedManagerUnit
+    private var trigger: SpeedManagerTrigger?
+    private var allowsBackgroundLocationUpdates: Bool = false
     
     // MARK: Public
     public var delegate: SpeedManagerDelegate?
@@ -15,12 +22,16 @@ public class SpeedManager : NSObject, ObservableObject {
     
     private var isRequestingLocation = false
     
-    public init(_ speedUnit: SpeedManagerUnit) {
+    public init(_ speedUnit: SpeedManagerUnit,
+                trigger: SpeedManagerTrigger? = nil,
+                allowsBackgroundLocationUpdates: Bool = false) {
         
         self.speedUnit = speedUnit
         self.delegate = nil
+        self.allowsBackgroundLocationUpdates = allowsBackgroundLocationUpdates
         super.init()
-        
+        self.trigger = trigger ?? self
+       
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter = kCLHeadingFilterNone
@@ -28,16 +39,17 @@ public class SpeedManager : NSObject, ObservableObject {
         self.locationManager.requestAlwaysAuthorization()
     }
     
-    func startUpdatingSpeed() {
-        self.startMonitoringSpeed()
+    public func startUpdatingSpeed() {
+        trigger?.startMonitoringSpeed()
     }
     
-    private func startMonitoringSpeed() {
+    public func startMonitoringSpeed() {
         
         switch self.authorizationStatus {
             
         case .authorized:
-            self.locationManager.allowsBackgroundLocationUpdates = true
+            if allowsBackgroundLocationUpdates { self.locationManager.allowsBackgroundLocationUpdates = true
+            }
             self.locationManager.startUpdatingLocation()
         case .notDetermined:
             self.locationManager.requestAlwaysAuthorization()

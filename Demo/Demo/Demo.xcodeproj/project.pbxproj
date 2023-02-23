@@ -11,8 +11,8 @@
 		22A60BA7295082AC0053DE68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A60BA6295082AC0053DE68 /* ContentView.swift */; };
 		22A60BA9295082AD0053DE68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A60BA8295082AD0053DE68 /* Assets.xcassets */; };
 		22A60BAD295082AD0053DE68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A60BAC295082AD0053DE68 /* Preview Assets.xcassets */; };
-		22A60BB5295082D00053DE68 /* SpeedManagerModule in Frameworks */ = {isa = PBXBuildFile; productRef = 22A60BB4295082D00053DE68 /* SpeedManagerModule */; };
 		22A60BB7295082F50053DE68 /* CustomGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A60BB6295082F50053DE68 /* CustomGauge.swift */; };
+		22A790752952196400BD997E /* SpeedManagerModule in Frameworks */ = {isa = PBXBuildFile; productRef = 22A790742952196400BD997E /* SpeedManagerModule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +24,7 @@
 		22A60BAC295082AD0053DE68 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		22A60BB6295082F50053DE68 /* CustomGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGauge.swift; sourceTree = "<group>"; };
 		22A60BB8295083AC0053DE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		22A790722952195B00BD997E /* SpeedManagerModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SpeedManagerModule; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A60BB5295082D00053DE68 /* SpeedManagerModule in Frameworks */,
+				22A790752952196400BD997E /* SpeedManagerModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +42,10 @@
 		22A60B98295082AC0053DE68 = {
 			isa = PBXGroup;
 			children = (
+				22A790712952195B00BD997E /* Packages */,
 				22A60BA3295082AC0053DE68 /* Demo */,
 				22A60BA2295082AC0053DE68 /* Products */,
+				22A790732952196400BD997E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +79,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		22A790712952195B00BD997E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				22A790722952195B00BD997E /* SpeedManagerModule */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		22A790732952196400BD997E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,7 +111,7 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				22A60BB4295082D00053DE68 /* SpeedManagerModule */,
+				22A790742952196400BD997E /* SpeedManagerModule */,
 			);
 			productName = Demo;
 			productReference = 22A60BA1295082AC0053DE68 /* Demo.app */;
@@ -124,7 +142,6 @@
 			);
 			mainGroup = 22A60B98295082AC0053DE68;
 			packageReferences = (
-				22A60BB3295082D00053DE68 /* XCRemoteSwiftPackageReference "SpeedManagerModule" */,
 			);
 			productRefGroup = 22A60BA2295082AC0053DE68 /* Products */;
 			projectDirPath = "";
@@ -381,21 +398,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		22A60BB3295082D00053DE68 /* XCRemoteSwiftPackageReference "SpeedManagerModule" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ezefranca/SpeedManagerModule.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		22A60BB4295082D00053DE68 /* SpeedManagerModule */ = {
+		22A790742952196400BD997E /* SpeedManagerModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 22A60BB3295082D00053DE68 /* XCRemoteSwiftPackageReference "SpeedManagerModule" */;
 			productName = SpeedManagerModule;
 		};
 /* End XCSwiftPackageProductDependency section */
