@@ -24,7 +24,7 @@ extension SpeedManagerModuleTests: SpeedManagerTrigger {
     func startMonitoringSpeed() {
         guard let manager = manager else { return }
         self.manager?.delegate?.speedManager(manager,
-                                             didUpdateSpeed: 12.2)
+                                             didUpdateSpeed: 12.2, speedAccuracy: 1)
     }
     
     func startUpdatingSpeed() {
@@ -32,7 +32,7 @@ extension SpeedManagerModuleTests: SpeedManagerTrigger {
     }
 }
 
-class SpeedManagerDelegateMock: SpeedManagerDelegate {
+class SpeedManagerDelegateMock: SpeedManagerDelegate {    
    
     var speed: Double?
     private var expectation: XCTestExpectation?
@@ -41,7 +41,7 @@ class SpeedManagerDelegateMock: SpeedManagerDelegate {
     var didUpdateSpeed: Bool = false
     var didFailWithError: Bool = false
     
-    func speedManager(_ manager: SpeedManagerModule.SpeedManager, didUpdateSpeed speed: Double) {
+    func speedManager(_ manager: SpeedManagerModule.SpeedManager, didUpdateSpeed speed: Double, speedAccuracy: Double) {
         didUpdateSpeed = true
         
         if expectation != nil { self.speed = speed }
