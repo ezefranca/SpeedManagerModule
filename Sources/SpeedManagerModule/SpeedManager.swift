@@ -19,7 +19,8 @@ public class SpeedManager : NSObject, ObservableObject, SpeedManagerTrigger {
    
     @Published public var authorizationStatus: SpeedManagerAuthorizationStatus = .notDetermined
     @Published public var speed: Double = 0
-    
+    @Published public var speedAccuracy: Double = 0
+
     private var isRequestingLocation = false
     
     public init(_ speedUnit: SpeedManagerUnit,
@@ -69,7 +70,7 @@ extension SpeedManager: CLLocationManagerDelegate {
         case .authorizedWhenInUse,
                 .authorizedAlways:
             authorizationStatus = .authorized
-            locationManager.requestLocation()
+            locationManager.requestLocation() 
             break
             
         case .notDetermined:
@@ -87,10 +88,11 @@ extension SpeedManager: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let currentSpeed = locations.last?.speed ?? 0
-        let calculatedSpeed = currentSpeed * self.speedUnit.rawValue
-        self.speed = abs(calculatedSpeed)
-        self.delegate?.speedManager(self, didUpdateSpeed: calculatedSpeed)
+        speed = currentSpeed >= 0 ? currentSpeed * speedUnit.rawValue : .nan
+        speedAccuracy = locations.last?.speedAccuracy ?? .nan
         
+        self.delegate?.speedManager(self, didUpdateSpeed: speed, speedAccuracy: speedAccuracy)
+
         self.locationManager.requestLocation()
     }
     
