@@ -7,7 +7,7 @@ final class SpeedManagerModuleTests: XCTestCase {
 
     func test_speed() throws {
         let mockDelegate = SpeedManagerDelegateMock(testCase: self)
-        manager = SpeedManager(.kilometersPerHour, trigger: self)
+        manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: self)
         manager?.delegate = mockDelegate
 
         mockDelegate.expectSpeed()
@@ -21,7 +21,7 @@ final class SpeedManagerModuleTests: XCTestCase {
 
     func test_speedAccuracy() throws {
         let mockDelegate = SpeedManagerDelegateMock(testCase: self)
-        manager = SpeedManager(.kilometersPerHour, trigger: self)
+        manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: self)
         manager?.delegate = mockDelegate
 
         mockDelegate.expectSpeed()
@@ -47,7 +47,7 @@ extension SpeedManagerModuleTests: SpeedManagerTrigger {
 }
 
 class SpeedManagerDelegateMock: SpeedManagerDelegate {
-   
+
     var speed: Double?
     var speedAccuracy: Double?
 
@@ -56,6 +56,8 @@ class SpeedManagerDelegateMock: SpeedManagerDelegate {
     
     var didUpdateSpeed: Bool = false
     var didFailWithError: Bool = false
+    var didUpdateAuthorizationStatus: Bool = false
+    var speedManagerDidFailWithLocationServicesUnavailable: Bool = false
     
     func speedManager(_ manager: SpeedManagerModule.SpeedManager, didUpdateSpeed speed: Double, speedAccuracy: Double) {
         didUpdateSpeed = true
@@ -70,6 +72,14 @@ class SpeedManagerDelegateMock: SpeedManagerDelegate {
     
     func speedManager(_ manager: SpeedManagerModule.SpeedManager, didFailWithError error: Error) {
         didFailWithError = true
+    }
+    
+    func speedManager(_ speedManager: SpeedManagerModule.SpeedManager, didUpdateAuthorizationStatus status: SpeedManagerModule.SpeedManagerAuthorizationStatus) {
+        didUpdateAuthorizationStatus = true
+    }
+    
+    func speedManagerDidFailWithLocationServicesUnavailable(_ speedManager: SpeedManagerModule.SpeedManager) {
+        speedManagerDidFailWithLocationServicesUnavailable = true
     }
     
     init(testCase: XCTestCase) {
