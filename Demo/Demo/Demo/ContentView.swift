@@ -9,14 +9,14 @@ import SwiftUI
 import SpeedManagerModule
 
 struct ContentView: View {
-    @StateObject var speedManager = SpeedManager(.kilometersPerHour)
+    @StateObject var speedManager = SpeedManager(speedUnit: .kilometersPerHour)
     
     var body: some View {
         VStack {
             switch speedManager.authorizationStatus {
             case .authorized:
                 Text("Your current speed is:")
-                Text("\(speedManager.speed.fixed())")
+                Text("\(speedManager.speed.fixedToOneDecimal())")
                 Text("km/h")
                 
                 CustomGauge(currentSpeed: $speedManager.speed)
