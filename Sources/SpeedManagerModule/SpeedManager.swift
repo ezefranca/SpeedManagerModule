@@ -1,34 +1,59 @@
 import Foundation
 import CoreLocation
 
-public protocol SpeedManagerTrigger {
-    func startUpdatingSpeed()
-    func startMonitoringSpeed()
-}
-
-public class SpeedManager : NSObject, ObservableObject, SpeedManagerTrigger {
+/// A class that manages the monitoring and updating of speed using CoreLocation.
+public class SpeedManager: NSObject, ObservableObject, SpeedManagerTrigger {
     
-    // MARK: Private
+    // MARK: - Properties
+    
+    /// The CoreLocation manager used to get location updates.
     private let locationManager = CLLocationManager()
+    
+    /// The unit of speed to be used.
     private var speedUnit: SpeedManagerUnit
+    
+    /// The trigger for starting speed updates.
     private var trigger: SpeedManagerTrigger?
-    private var allowsBackgroundLocationUpdates: Bool = false
     
-    // MARK: Public
-    public var delegate: SpeedManagerDelegate?
-   
-    @Published public var authorizationStatus: SpeedManagerAuthorizationStatus = .notDetermined
-    @Published public var speed: Double = 0
-    @Published public var speedAccuracy: Double = 0
+    /// Indicates whether background location updates are allowed.
+    private var allowsBackgroundLocationUpdates: Bool
+    
+    /// The delegate to receive updates from the SpeedManager.
+    public weak var delegate: SpeedManagerDelegate?
+    
+    /// The current authorization status for location services.
+    @Published public private(set) var authorizationStatus: SpeedManagerAuthorizationStatus = .notDetermined {
+        didSet {
+            DispatchQueue.main.async {
+                self.delegate?.speedManager(self, didUpdateAuthorizationStatus: self.authorizationStatus)
+            }
+        }
+    }
+    
+    /// The current speed.
+    @Published public var speed: Double = 0 {
+        didSet {
+            DispatchQueue.main.async {
+                self.delegate?.speedManager(self, didUpdateSpeed: self.speed, speedAccuracy: self.speedAccuracy)
+            }
+        }
+    }
+    
+    /// The accuracy of the current speed.
+    @Published public private(set) var speedAccuracy: Double = 0
 
-    private var isRequestingLocation = false
+    // MARK: - Initializer
     
-    public init(_ speedUnit: SpeedManagerUnit,
+    /// Initializes a new SpeedManager.
+    /// - Parameters:
+    ///   - speedUnit: The unit of speed measurement.
+    ///   - trigger: An optional trigger for starting speed updates. If nil, the SpeedManager will trigger itself.
+    ///   - allowsBackgroundLocationUpdates: A Boolean value indicating whether background location updates are allowed.
+    public init(speedUnit: SpeedManagerUnit,
                 trigger: SpeedManagerTrigger? = nil,
                 allowsBackgroundLocationUpdates: Bool = false) {
         
         self.speedUnit = speedUnit
-        self.delegate = nil
         self.allowsBackgroundLocationUpdates = allowsBackgroundLocationUpdates
         super.init()
         self.trigger = trigger ?? self
@@ -40,63 +65,73 @@ public class SpeedManager : NSObject, ObservableObject, SpeedManagerTrigger {
         self.locationManager.requestAlwaysAuthorization()
     }
     
+    // MARK: - Public Methods
+    
+    /// Starts updating the speed.
     public func startUpdatingSpeed() {
         trigger?.startMonitoringSpeed()
     }
     
+    /// Starts monitoring the speed.
     public func startMonitoringSpeed() {
-        
-        switch self.authorizationStatus {
-            
+        switch authorizationStatus {
         case .authorized:
-            if allowsBackgroundLocationUpdates { self.locationManager.allowsBackgroundLocationUpdates = true
+            if allowsBackgroundLocationUpdates {
+                locationManager.allowsBackgroundLocationUpdates = true
             }
-            self.locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         case .notDetermined:
-            self.locationManager.requestAlwaysAuthorization()
+            locationManager.requestAlwaysAuthorization()
         case .denied:
-            fatalError("No location services available")
+            DispatchQueue.main.async {
+                self.delegate?.speedManagerDidFailWithLocationServicesUnavailable(self)
+            }
         }
     }
 }
 
-// MARK: CLLocationManagerDelegate methods
+// MARK: - CLLocationManagerDelegate
 
 extension SpeedManager: CLLocationManagerDelegate {
     
+    /// Called when the authorization status changes.
+    /// - Parameter manager: The location manager reporting the change.
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-            
-        case .authorizedWhenInUse,
-                .authorizedAlways:
+        case .authorizedWhenInUse, .authorizedAlways:
             authorizationStatus = .authorized
-            locationManager.requestLocation() 
-            break
-            
+            locationManager.requestLocation()
         case .notDetermined:
             authorizationStatus = .notDetermined
             manager.requestWhenInUseAuthorization()
-            break
-            
         default:
             authorizationStatus = .denied
         }
         
-        self.startMonitoringSpeed()
+        startMonitoringSpeed()
     }
     
+    /// Called when new location data is available.
+    /// - Parameters:
+    ///   - manager: The location manager providing the data.
+    ///   - locations: An array of new location data objects.
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let lastLocation = locations.last else { return }
         
-        let currentSpeed = locations.last?.speed ?? 0
+        let currentSpeed = lastLocation.speed
         speed = currentSpeed >= 0 ? currentSpeed * speedUnit.rawValue : .nan
-        speedAccuracy = locations.last?.speedAccuracy ?? .nan
+        speedAccuracy = lastLocation.speedAccuracy
         
-        self.delegate?.speedManager(self, didUpdateSpeed: speed, speedAccuracy: speedAccuracy)
-
-        self.locationManager.requestLocation()
+        locationManager.requestLocation()
     }
     
+    /// Called when the location manager encounters an error.
+    /// - Parameters:
+    ///   - manager: The location manager reporting the error.
+    ///   - error: The error encountered by the location manager.
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        self.delegate?.speedManager(self, didFailWithError: error)
+        DispatchQueue.main.async {
+            self.delegate?.speedManager(self, didFailWithError: error)
+        }
     }
 }
