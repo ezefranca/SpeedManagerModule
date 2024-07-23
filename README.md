@@ -13,12 +13,10 @@
 
 Measure the speed using an iPhone or Apple Watch.
 
-<p align="center" >
-  <img src="https://github.com/ezefranca/SpeedManagerModule/blob/main/banner.jpg" alt="SpeedManagerModule" title="SpeedManagerModule">
-</p>
 
-https://github.com/user-attachments/assets/516ea10b-a89e-4851-9839-c1775ae52f3d
+https://github.com/user-attachments/assets/fbee0a69-a993-4de2-aebb-9459533b0800
 
+> [!NOTE]
 > The Demo UI was created using [LidorFadida](https://github.com/LidorFadida/) package [SpeedometerSwiftUI](https://github.com/LidorFadida/SpeedometerSwiftUI)
 
 ### Motivation
