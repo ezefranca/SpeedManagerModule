@@ -1,0 +1,15 @@
+{
+  "originHash" : "f85d5e4b04b250738b975a05ca154d748cfd11cfef3306ae68f6356d4cb9d1c2",
+  "pins" : [
+    {
+      "identity" : "speedometerswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LidorFadida/SpeedometerSwiftUI.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c51afc0b1014489dc20cb5a7a5bc7141611e61e8"
+      }
+    }
+  ],
+  "version" : 3
+}
