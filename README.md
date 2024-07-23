@@ -17,6 +17,9 @@ Measure the speed using an iPhone or Apple Watch.
   <img src="https://github.com/ezefranca/SpeedManagerModule/blob/main/banner.jpg" alt="SpeedManagerModule" title="SpeedManagerModule">
 </p>
 
+https://github.com/user-attachments/assets/516ea10b-a89e-4851-9839-c1775ae52f3d
+
+> The Demo UI was created using [LidorFadida](https://github.com/LidorFadida/) package [SpeedometerSwiftUI](https://github.com/LidorFadida/SpeedometerSwiftUI)
 
 ### Motivation
 
@@ -134,7 +137,6 @@ Just choose the unit during the class init.
 
 Check the `Demo` folder to see it in action.
 
-https://user-images.githubusercontent.com/3648336/208701407-ebf7319f-32c1-45bc-adc7-aa8509f0336d.mov
 
 ## Meta
 
