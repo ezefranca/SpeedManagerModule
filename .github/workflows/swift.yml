@@ -1,22 +1,44 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
-
-name: Swift
+name: Swift CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+    tags: ["v*"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-
-    runs-on: macos-latest
+  build-test-and-docs:
+    runs-on: macos-15
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Select Xcode (Swift 6)
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.0"
+      - name: Swift version
+        run: swift --version
+      - name: Resolve package dependencies
+        run: swift package resolve
+      - name: Build (Swift 6 + strict concurrency)
+        run: swift build -v --build-tests -Xswiftc -strict-concurrency=complete
+      - name: Run tests
+        run: swift test -v -Xswiftc -strict-concurrency=complete
+      - name: Generate DocC archive
+        run: |
+          xcodebuild docbuild \
+            -scheme SpeedManagerModule \
+            -destination "generic/platform=macOS" \
+            -derivedDataPath .build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Validate DocC output
+        run: |
+          test -n "$(find .build/DerivedData -name 'SpeedManagerModule.doccarchive' -print -quit)"
