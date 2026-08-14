@@ -11,6 +11,13 @@
 
 SpeedManagerModule is a Swift package that reads speed from `CLLocationManager` and exposes it through a delegate API and observable state.
 
+# Demo
+
+https://github.com/user-attachments/assets/fbee0a69-a993-4de2-aebb-9459533b0800
+
+> [!NOTE]
+> The Demo UI was created using [LidorFadida](https://github.com/LidorFadida/) package [SpeedometerSwiftUI](https://github.com/LidorFadida/SpeedometerSwiftUI)
+
 ## Compatibility
 
 - Swift: **6.0+**
