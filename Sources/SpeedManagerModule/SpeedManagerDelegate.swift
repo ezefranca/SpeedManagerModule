@@ -1,6 +1,8 @@
 import Foundation
 
 /// Protocol defining the delegate methods for the SpeedManager.
+/// All callbacks are delivered on the main actor.
+@MainActor
 public protocol SpeedManagerDelegate: AnyObject {
     /// Called when the speed manager updates the speed.
     func speedManager(_ speedManager: SpeedManager, didUpdateSpeed speed: Double, speedAccuracy: Double)

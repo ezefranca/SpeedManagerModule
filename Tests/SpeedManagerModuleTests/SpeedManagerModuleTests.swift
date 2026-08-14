@@ -1,94 +1,99 @@
 import XCTest
 @testable import SpeedManagerModule
 
+@MainActor
 final class SpeedManagerModuleTests: XCTestCase {
+    func testStartUpdatingSpeedDelegatesToTrigger() {
+        let trigger = TriggerMock()
+        let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
 
-    var manager: SpeedManager?
+        manager.startUpdatingSpeed()
 
-    func test_speed() throws {
-        let mockDelegate = SpeedManagerDelegateMock(testCase: self)
-        manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: self)
-        manager?.delegate = mockDelegate
-
-        mockDelegate.expectSpeed()
-        manager?.startUpdatingSpeed()
-
-        waitForExpectations(timeout: 1)
-
-        let result = try XCTUnwrap(mockDelegate.speed)
-        XCTAssertEqual(result, 12.2)
+        XCTAssertEqual(trigger.startMonitoringCalls, 1)
     }
 
-    func test_speedAccuracy() throws {
-        let mockDelegate = SpeedManagerDelegateMock(testCase: self)
-        manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: self)
-        manager?.delegate = mockDelegate
+    func testSpeedUpdateNotifiesDelegateWithAccuracy() {
+        let trigger = TriggerMock()
+        let delegate = SpeedManagerDelegateMock()
+        let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
+        manager.delegate = delegate
 
-        mockDelegate.expectSpeed()
-        manager?.startUpdatingSpeed()
+        manager.speed = 12.2
 
-        waitForExpectations(timeout: 1)
+        XCTAssertEqual(delegate.speedEvents.count, 1)
+        XCTAssertEqual(delegate.speedEvents.first?.speed, 12.2)
+        XCTAssertEqual(delegate.speedEvents.first?.speedAccuracy, 0)
+    }
 
-        XCTAssertEqual(mockDelegate.speedAccuracy, 1)
+    func testAuthorizationStatusIsDeniedOnPlatformsWithoutCoreLocation() {
+#if canImport(CoreLocation)
+        throw XCTSkip("This assertion is only deterministic on platforms without CoreLocation.")
+#else
+        let manager = SpeedManager(speedUnit: .kilometersPerHour)
+        XCTAssertEqual(manager.authorizationStatus, .denied)
+#endif
+    }
+
+    func testDeniedMonitoringNotifiesDelegateOnPlatformsWithoutCoreLocation() {
+#if canImport(CoreLocation)
+        throw XCTSkip("This assertion is only deterministic on platforms without CoreLocation.")
+#else
+        let delegate = SpeedManagerDelegateMock()
+        let manager = SpeedManager(speedUnit: .kilometersPerHour)
+        manager.delegate = delegate
+
+        manager.startMonitoringSpeed()
+
+        XCTAssertEqual(delegate.locationUnavailableCalls, 1)
+#endif
+    }
+
+    func testAuthorizationAndUnitAreSendable() {
+        assertSendable(SpeedManagerAuthorizationStatus.authorized)
+        assertSendable(SpeedManagerUnit.kilometersPerHour)
+    }
+
+    private func assertSendable<T: Sendable>(_ value: T) {
+        _ = value
     }
 }
 
-extension SpeedManagerModuleTests: SpeedManagerTrigger {
+@MainActor
+private final class TriggerMock: SpeedManagerTrigger {
+    var startMonitoringCalls = 0
+
+    func startUpdatingSpeed() {}
+
     func startMonitoringSpeed() {
-        guard let manager = manager else { return }
-        self.manager?.delegate?.speedManager(manager,
-                                             didUpdateSpeed: 12.2, 
-                                             speedAccuracy: 1)
-    }
-    
-    func startUpdatingSpeed() {
-        self.startMonitoringSpeed()
+        startMonitoringCalls += 1
     }
 }
 
-class SpeedManagerDelegateMock: SpeedManagerDelegate {
-
-    var speed: Double?
-    var speedAccuracy: Double?
-
-    private var expectation: XCTestExpectation?
-    private let testCase: XCTestCase
-    
-    var didUpdateSpeed: Bool = false
-    var didFailWithError: Bool = false
-    var didUpdateAuthorizationStatus: Bool = false
-    var speedManagerDidFailWithLocationServicesUnavailable: Bool = false
-    
-    func speedManager(_ manager: SpeedManagerModule.SpeedManager, didUpdateSpeed speed: Double, speedAccuracy: Double) {
-        didUpdateSpeed = true
-        
-        if expectation != nil {
-            self.speed = speed
-            self.speedAccuracy = speedAccuracy
-        }
-        expectation?.fulfill()
-        expectation = nil
-    }
-    
-    func speedManager(_ manager: SpeedManagerModule.SpeedManager, didFailWithError error: Error) {
-        didFailWithError = true
-    }
-    
-    func speedManager(_ speedManager: SpeedManagerModule.SpeedManager, didUpdateAuthorizationStatus status: SpeedManagerModule.SpeedManagerAuthorizationStatus) {
-        didUpdateAuthorizationStatus = true
-    }
-    
-    func speedManagerDidFailWithLocationServicesUnavailable(_ speedManager: SpeedManagerModule.SpeedManager) {
-        speedManagerDidFailWithLocationServicesUnavailable = true
-    }
-    
-    init(testCase: XCTestCase) {
-        self.testCase = testCase
+@MainActor
+private final class SpeedManagerDelegateMock: SpeedManagerDelegate {
+    struct SpeedEvent: Equatable {
+        let speed: Double
+        let speedAccuracy: Double
     }
 
-    func expectSpeed() {
-        expectation = testCase.expectation(description: "Expect speed")
+    var speedEvents: [SpeedEvent] = []
+    var didFailWithErrorCalls = 0
+    var authorizationUpdates: [SpeedManagerAuthorizationStatus] = []
+    var locationUnavailableCalls = 0
+
+    func speedManager(_ speedManager: SpeedManager, didUpdateSpeed speed: Double, speedAccuracy: Double) {
+        speedEvents.append(.init(speed: speed, speedAccuracy: speedAccuracy))
+    }
+
+    func speedManager(_ speedManager: SpeedManager, didFailWithError error: any Error) {
+        didFailWithErrorCalls += 1
+    }
+
+    func speedManager(_ speedManager: SpeedManager, didUpdateAuthorizationStatus status: SpeedManagerAuthorizationStatus) {
+        authorizationUpdates.append(status)
+    }
+
+    func speedManagerDidFailWithLocationServicesUnavailable(_ speedManager: SpeedManager) {
+        locationUnavailableCalls += 1
     }
 }
-
-
