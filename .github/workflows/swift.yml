@@ -36,7 +36,7 @@ jobs:
         run: |
           xcodebuild docbuild \
             -scheme SpeedManagerModule \
-            -destination "generic/platform=iOS" \
+            -destination "generic/platform=macOS" \
             -derivedDataPath .build/DerivedData \
             CODE_SIGNING_ALLOWED=NO
       - name: Validate DocC output
