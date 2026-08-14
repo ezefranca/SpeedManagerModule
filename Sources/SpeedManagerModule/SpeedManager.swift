@@ -96,6 +96,8 @@ public final class SpeedManager: NSObject, ObservableObject, SpeedManagerTrigger
     // MARK: - Public Methods
 
     /// Starts updating the speed.
+    ///
+    /// Use this method when you want the manager (or a custom trigger) to begin the authorization and monitoring flow.
     public func startUpdatingSpeed() {
         trigger?.startMonitoringSpeed()
     }

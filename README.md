@@ -1,9 +1,10 @@
 [![Swift 6](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org)
 [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-4BC51D.svg)](https://github.com/apple/swift-package-manager)
 [![CI](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml/badge.svg)](https://github.com/ezefranca/SpeedManagerModule/actions/workflows/swift.yml)
-[![Swift Package Index](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fezefranca%2FSpeedManagerModule%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
+[![Swift Package Index](https://img.shields.io/badge/Swift_Package_Index-available-0A84FF)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
+[![SPI Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fezefranca%2FSpeedManagerModule%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
 [![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fezefranca%2FSpeedManagerModule%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule)
-[![SPI Documentation](https://img.shields.io/badge/Documentation-SPI-blue)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule/documentation)
+[![SPI Documentation](https://img.shields.io/badge/Documentation-SPI%20DocC-blue)](https://swiftpackageindex.com/ezefranca/SpeedManagerModule/documentation/speedmanagermodule)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # SpeedManagerModule
@@ -103,7 +104,7 @@ swift test
 ## Documentation
 
 - API documentation is generated from DocC-compatible symbol comments.
-- Hosted docs: https://swiftpackageindex.com/ezefranca/SpeedManagerModule/documentation
+- Hosted docs: https://swiftpackageindex.com/ezefranca/SpeedManagerModule/documentation/speedmanagermodule
 
 ## Release information
 
