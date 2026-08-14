@@ -132,7 +132,7 @@ public final class SpeedManager: NSObject, ObservableObject, SpeedManagerTrigger
 // MARK: - CLLocationManagerDelegate
 
 #if canImport(CoreLocation)
-extension SpeedManager: CLLocationManagerDelegate {
+extension SpeedManager: @preconcurrency CLLocationManagerDelegate {
     /// Called when the authorization status changes.
     /// - Parameter manager: The location manager reporting the change.
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
