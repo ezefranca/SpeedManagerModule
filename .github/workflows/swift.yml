@@ -19,5 +19,5 @@ jobs:
         run: swift build -v --build-tests
       - name: Run tests
         run: swift test -v
-      - name: Generate DocC archive
-        run: swift package --allow-writing-to-directory /tmp/docc generate-documentation --target SpeedManagerModule --output-path /tmp/docc/SpeedManagerModule.doccarchive
+      - name: Generate documentation
+        run: xcodebuild docbuild -scheme SpeedManagerModule -destination "generic/platform=iOS"

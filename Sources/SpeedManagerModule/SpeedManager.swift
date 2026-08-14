@@ -5,18 +5,16 @@ import Combine
 #if canImport(CoreLocation)
 import CoreLocation
 #endif
+#if !canImport(Combine)
+public protocol ObservableObject: AnyObject {}
+#endif
 
 /// A main-actor isolated manager that monitors and publishes user speed updates.
 ///
 /// - Important: On platforms where `CoreLocation` is unavailable, authorization is set to `.denied`
 ///   and monitoring reports location services as unavailable.
 @MainActor
-public final class SpeedManager: NSObject, SpeedManagerTrigger
-#if canImport(Combine)
-,
-ObservableObject
-#endif
-{
+public final class SpeedManager: NSObject, ObservableObject, SpeedManagerTrigger {
     /// The unit of speed to be used.
     private let speedUnit: SpeedManagerUnit
 

@@ -29,7 +29,7 @@ let package = Package(
             dependencies: ["SpeedManagerModule"]
         ),
     ],
-    swiftLanguageVersions: [
+    swiftLanguageModes: [
         .v6
     ]
 )

@@ -1,50 +1,57 @@
 import XCTest
 @testable import SpeedManagerModule
 
-@MainActor
 final class SpeedManagerModuleTests: XCTestCase {
-    func testStartUpdatingSpeedDelegatesToTrigger() {
-        let trigger = TriggerMock()
-        let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
+    func testStartUpdatingSpeedDelegatesToTrigger() async {
+        let callCount = await MainActor.run { () -> Int in
+            let trigger = TriggerMock()
+            let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
+            manager.startUpdatingSpeed()
+            return trigger.startMonitoringCalls
+        }
 
-        manager.startUpdatingSpeed()
-
-        XCTAssertEqual(trigger.startMonitoringCalls, 1)
+        XCTAssertEqual(callCount, 1)
     }
 
-    func testSpeedUpdateNotifiesDelegateWithAccuracy() {
-        let trigger = TriggerMock()
-        let delegate = SpeedManagerDelegateMock()
-        let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
-        manager.delegate = delegate
+    func testSpeedUpdateNotifiesDelegateWithAccuracy() async {
+        let event = await MainActor.run { () -> (Double, Double)? in
+            let trigger = TriggerMock()
+            let delegate = SpeedManagerDelegateMock()
+            let manager = SpeedManager(speedUnit: .kilometersPerHour, trigger: trigger)
+            manager.delegate = delegate
+            manager.speed = 12.2
+            guard let event = delegate.speedEvents.first else { return nil }
+            return (event.speed, event.speedAccuracy)
+        }
 
-        manager.speed = 12.2
-
-        XCTAssertEqual(delegate.speedEvents.count, 1)
-        XCTAssertEqual(delegate.speedEvents.first?.speed, 12.2)
-        XCTAssertEqual(delegate.speedEvents.first?.speedAccuracy, 0)
+        XCTAssertEqual(event?.0, 12.2)
+        XCTAssertEqual(event?.1, 0)
     }
 
-    func testAuthorizationStatusIsDeniedOnPlatformsWithoutCoreLocation() {
+    func testAuthorizationStatusIsDeniedOnPlatformsWithoutCoreLocation() async throws {
 #if canImport(CoreLocation)
         throw XCTSkip("This assertion is only deterministic on platforms without CoreLocation.")
 #else
-        let manager = SpeedManager(speedUnit: .kilometersPerHour)
-        XCTAssertEqual(manager.authorizationStatus, .denied)
+        let status = await MainActor.run { () -> SpeedManagerAuthorizationStatus in
+            let manager = SpeedManager(speedUnit: .kilometersPerHour)
+            return manager.authorizationStatus
+        }
+        XCTAssertEqual(status, .denied)
 #endif
     }
 
-    func testDeniedMonitoringNotifiesDelegateOnPlatformsWithoutCoreLocation() {
+    func testDeniedMonitoringNotifiesDelegateOnPlatformsWithoutCoreLocation() async throws {
 #if canImport(CoreLocation)
         throw XCTSkip("This assertion is only deterministic on platforms without CoreLocation.")
 #else
-        let delegate = SpeedManagerDelegateMock()
-        let manager = SpeedManager(speedUnit: .kilometersPerHour)
-        manager.delegate = delegate
-
-        manager.startMonitoringSpeed()
-
-        XCTAssertEqual(delegate.locationUnavailableCalls, 1)
+        let unavailableCalls = await MainActor.run { () -> Int in
+            let delegate = SpeedManagerDelegateMock()
+            let manager = SpeedManager(speedUnit: .kilometersPerHour)
+            manager.delegate = delegate
+            manager.startMonitoringSpeed()
+            return delegate.locationUnavailableCalls
+        }
+        XCTAssertEqual(unavailableCalls, 1)
 #endif
     }
 
