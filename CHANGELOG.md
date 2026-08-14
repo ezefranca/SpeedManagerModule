@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2.0.0 - Unreleased
+## 1.0.0 - Unreleased
 
 ### Added
 - Swift 6 language mode in `Package.swift`.

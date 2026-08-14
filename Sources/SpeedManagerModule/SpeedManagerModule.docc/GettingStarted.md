@@ -7,7 +7,7 @@ Set up `SpeedManagerModule` and start receiving speed updates.
 Add `SpeedManagerModule` to your `Package.swift` dependencies:
 
 ```swift
-.package(url: "https://github.com/ezefranca/SpeedManagerModule.git", from: "2.0.0")
+.package(url: "https://github.com/ezefranca/SpeedManagerModule.git", from: "1.0.0")
 ```
 
 Then add `SpeedManagerModule` to your target dependencies.

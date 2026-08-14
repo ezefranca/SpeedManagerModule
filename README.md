@@ -28,7 +28,7 @@ https://github.com/user-attachments/assets/fbee0a69-a993-4de2-aebb-9459533b0800
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ezefranca/SpeedManagerModule.git", from: "2.0.0")
+    .package(url: "https://github.com/ezefranca/SpeedManagerModule.git", from: "1.0.0")
 ]
 ```
 
@@ -115,5 +115,5 @@ swift test
 
 ## Release information
 
-- Current planned release for this migration: **v2.0.0**
+- Current planned release for this migration: **v1.0.0**
 - See `CHANGELOG.md` for migration notes and breaking changes.
