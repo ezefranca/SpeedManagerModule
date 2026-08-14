@@ -10,6 +10,9 @@ on:
     types: [published]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-test-and-docs:
     runs-on: macos-15
